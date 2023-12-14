@@ -1,16 +1,16 @@
 import { Action, configureStore, Dispatch } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-
-import { coreEpics, coreFeature, coreReducer } from "./core";
+import { RootState } from "src/types/types";
+import { appsEpics, appsFeature, appsReducer } from "./apps";
 
 // Configure middlewares
-const rootEpic = combineEpics(...coreEpics);
+const rootEpic = combineEpics(...appsEpics);
 const epicMiddleware = createEpicMiddleware();
 
 // Configure store
 const reducers = {
-  [coreFeature]: coreReducer,
+  [appsFeature]: appsReducer,
 };
 
 // Export

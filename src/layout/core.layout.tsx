@@ -1,6 +1,7 @@
+import { mountStore } from "@/store";
 import { Store } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { mountStore } from "src/store";
+import { RootState } from "@/types/types";
 
 interface IProps {
   children: React.ReactNode;
@@ -8,9 +9,7 @@ interface IProps {
 
 const StateProvider: React.FC<IProps> = ({ children }: IProps) => {
   const store = mountStore();
-  return (
-    <Provider store={store as unknown as Store<RootState>}>{children}</Provider>
-  );
+  return <Provider store={store as Store<RootState>}>{children}</Provider>;
 };
 
 export const Layout: React.FC<IProps> = ({ children }: IProps) => (
