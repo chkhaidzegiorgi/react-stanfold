@@ -1,9 +1,10 @@
-import { filter, map } from "rxjs";
+import { concatMap, filter, from, map, switchMap } from "rxjs";
 import { coreActions } from "./core.slice";
 import type { Action } from "@reduxjs/toolkit";
 import type { Observable } from "rxjs";
+import { getProviders } from "src/core/services/example/providers";
 
-export const bootstrapAtpEpic = (
+export const setTokenEpic = (
   actions$: Observable<Action<any>>
 ): Observable<Action<any>> =>
   actions$.pipe(
@@ -14,4 +15,16 @@ export const bootstrapAtpEpic = (
     })
   );
 
-export const coreEpics = [bootstrapAtpEpic];
+export const setProvidersEpic = (
+  actions$: Observable<Action<any>>
+): Observable<Action<any>> =>
+  actions$.pipe(
+    filter(coreActions.setProviders.match),
+    switchMap(() =>
+      from(getProviders()).pipe(
+        concatMap((data) => [coreActions.updateProviders(data)])
+      )
+    )
+  );
+
+export const coreEpics = [setTokenEpic, setProvidersEpic];

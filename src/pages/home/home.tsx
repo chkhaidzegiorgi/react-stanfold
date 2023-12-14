@@ -4,13 +4,16 @@ import { coreActions, coreSelectors } from "src/store/core";
 
 const Home = () => {
   console.log("rendered home");
+  const providers = useAppSelector(coreSelectors.providersSelector);
   const token = useAppSelector(coreSelectors.tokenSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log("dispatched");
     dispatch(coreActions.setToken());
+    dispatch(coreActions.setProviders());
   }, []);
+
+  console.log(providers, "providers");
 
   return <>Home is here, token: {token}</>;
 };

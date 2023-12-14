@@ -9,3 +9,8 @@ export const tokenSelector = createSelector(
   coreSelector,
   (coreState) => coreState.token
 );
+
+export const providersSelector = createSelector(
+  coreSelector,
+  (coreState) => coreState.providers
+);
